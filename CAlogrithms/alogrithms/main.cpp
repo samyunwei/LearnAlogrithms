@@ -7,9 +7,13 @@
 //
 
 #include <iostream>
+
+#include "Vector.h"
+#include "Vector.cpp"
 using namespace std;
 int main(int argc, const char * argv[]) {
     // insert code here...
     std::cout << "Hello, World!\n";
+    Vector<int> test;
     return 0;
 }
