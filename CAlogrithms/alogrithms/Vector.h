@@ -19,6 +19,7 @@ protected:
     Rank m_size; //向量大小
     int m_capacity;//向量容量
     T* m_elem;//向量指针
+public:
     //构造函数
     Vector(int c = DEFAULT_CAPACITY,int s = 0,T v = 0);
     
