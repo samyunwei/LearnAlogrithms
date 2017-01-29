@@ -7,3 +7,5 @@ Makefile
 *.o
 *.dylib
 /.idea
+/lib
+/data

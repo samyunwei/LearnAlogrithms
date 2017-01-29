@@ -141,15 +141,15 @@ public class StackLink<Item>
 		Node temp = first;
 		while(temp.Next != null)
 		{
-			if((int)temp.item > res)
+			if((Integer)temp.item > res)
 			{
-				res = (int)temp.item;
+				res = (Integer) temp.item;
 			}
 			temp = temp.Next;
 		}
-		if((int)temp.item > res)
+		if((Integer)temp.item > res)
 		{
-			res = (int)temp.item;
+			res = (Integer) temp.item;
 		}
 		return res;
 	}
@@ -157,9 +157,9 @@ public class StackLink<Item>
 	public int max(Node theNode,int themax)
 	{
 		
-		if((int)theNode.item > themax)
+		if((Integer)theNode.item > themax)
 		{
-			themax = (int)theNode.item;
+			themax = (Integer) theNode.item;
 		}
 		if(theNode.Next == null)
 		{
