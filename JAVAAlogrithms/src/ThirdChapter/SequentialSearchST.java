@@ -1,4 +1,5 @@
 package ThirdChapter;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 
@@ -24,9 +25,10 @@ public class SequentialSearchST<Key,Value>{
 
     }
 
-    public Value get(Key key){
+    public Value get(Key key)
+    {
         for (Node x = first;x != null ;x = x.next){
-            if(key.equals(x.equals(x.key))){
+            if(key.equals(x.key)){
                 return x.val;
             }
         }
@@ -39,11 +41,11 @@ public class SequentialSearchST<Key,Value>{
         {
             if(key.equals(x.key)){
                 x.val = val;
-                ++size;
                 return;
             }
         }
         first = new Node(key,val,first);
+        ++size;
 
     }
 
@@ -52,28 +54,12 @@ public class SequentialSearchST<Key,Value>{
     }
 
 
-    public Iterator<Key> keys(){
-        return new Iterator<Key>() {
-            Node m_current = null;
-
-            @Override
-            public boolean hasNext() {
-                return m_current.next != null;
-            }
-
-            @Override
-            public Key next() {
-                if(m_current == null){
-                    m_current = first;
-                    return m_current.key;
-
-                }else {
-                    Key res = m_current.key;
-                    m_current = m_current.next;
-                    return res;
-                }
-            }
-        };
+    public Iterable<Key> keys(){
+        ArrayList<Key> keys = new ArrayList<Key>();
+        for(Node temp = first;temp != null;temp = temp.next){
+            keys.add(temp.key);
+        }
+        return keys;
     }
 
 
@@ -89,4 +75,15 @@ public class SequentialSearchST<Key,Value>{
             last = temp;
         }
    }
+
+   public boolean contains(Key key)
+   {
+       for (Node x = first;x != null ;x = x.next){
+           if(key.equals(x.key)){
+               return true;
+           }
+       }
+       return false;
+   }
+
 }
