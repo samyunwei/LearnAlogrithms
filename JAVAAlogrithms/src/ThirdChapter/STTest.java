@@ -28,7 +28,7 @@ class STTest
         for(String s: st.keys()) {
             StdOut.println(s + " " + st.get(s));
         }
-
     }
+
 
 }
