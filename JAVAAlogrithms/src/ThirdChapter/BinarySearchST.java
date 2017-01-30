@@ -1,6 +1,7 @@
 package ThirdChapter;
 
-import java.util.Objects;
+
+import edu.princeton.cs.algs4.Queue;
 
 /**
  * Author:Sam
@@ -95,21 +96,75 @@ public class BinarySearchST<Key extends Comparable<Key>,Value> {
     public void delete(Key key)
     {
         int i = rank(key);
-        if(i == N)
+        if(i < N && keys[i].compareTo(key) == 0)
         {
-            return;
-        }
-        keys[i] = null;
-        vals[i] = null;
-        for(int j = i;j < N;j++)
-        {
-            keys[j] = keys[j+1];
-            vals[j] = vals[j+1];
-        }
-        --N;
-        if(N > 0 && N == keys.length / 4){
-            resize(keys.length / 2);
+            keys[i] = null;
+            vals[i] = null;
+            for(int j = i;j < N;j++)
+            {
+                keys[j] = keys[j+1];
+                vals[j] = vals[j+1];
+            }
+            --N;
+            if(N > 0 && N == keys.length / 4){
+                resize(keys.length / 2);
+            }
         }
     }
 
+    public Key min()
+    {
+        return keys[0];
+    }
+
+    public Key max()
+    {
+        return keys[N - 1];
+    }
+
+    public Key select(int k)
+    {
+        return keys[k];
+    }
+
+    public Key ceiling(Key key)
+    {
+        int i = rank(key);
+        return keys[i];
+    }
+
+    public Key floor(Key key)
+    {
+        int i = rank(key);
+        if(i < N && keys[i].compareTo(key) == 0 || i == 0){
+               return keys[i];
+        }else
+        {
+            return null;
+        }
+    }
+
+    public boolean contains(Key key)
+    {
+        int i = rank(key);
+        if(i < N && keys[i].compareTo(key) == 0 || i == 0){
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
+
+    public Iterable<Key> keys(Key lo,Key hi)
+    {
+        Queue<Key> q = new Queue<Key>();
+        for(int i = rank(lo);i < rank(hi);i++)
+        {
+            q.enqueue(keys[i]);
+        }
+        if(contains(hi)){
+            q.enqueue(keys[rank(hi)]);
+        }
+        return q;
+    }
 }
