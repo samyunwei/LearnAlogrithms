@@ -147,7 +147,7 @@ public class BinarySearchST<Key extends Comparable<Key>,Value> {
     public boolean contains(Key key)
     {
         int i = rank(key);
-        if(i < N && keys[i].compareTo(key) == 0 || i == 0){
+        if(i < N && keys[i].compareTo(key) == 0){
             return true;
         }else
         {

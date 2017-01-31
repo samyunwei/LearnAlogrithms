@@ -1,8 +1,6 @@
 package ThirdChapter;
 
-import edu.princeton.cs.algs4.ST;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.*;
 
 import java.io.FileNotFoundException;
 
@@ -13,8 +11,9 @@ public class FrequencyCounter {
     public static void main(String[] args) throws FileNotFoundException {
         ReDriectStd.ReStdInFile("/Users/ddsss/Desktop/LearnSpace/LearnAlogrithms/JAVAAlogrithms/data/algs4-data/tale.txt");
         int minlen = 8;
-        ST<String,Integer>st = new ST<>();
+        //ST<String,Integer>st = new ST<>();
         //SequentialSearchST<String,Integer>st = new SequentialSearchST<>();
+        BinarySearchST<String,Integer>st = new BinarySearchST<>(100);
         while (!StdIn.isEmpty()){
             String word = StdIn.readString();
             if(word.length() < minlen){
@@ -29,7 +28,7 @@ public class FrequencyCounter {
 
         String max = " ";
         st.put(max,0);
-        for(String word:st.keys()){
+        for(String word:st.keys(st.min(),st.max())){
             if(st.get(word) > st.get(max)){
                 max = word;
             }
