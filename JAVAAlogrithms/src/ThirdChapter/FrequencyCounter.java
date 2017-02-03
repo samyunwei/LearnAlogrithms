@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
  */
 public class FrequencyCounter {
     public static void main(String[] args) throws FileNotFoundException {
-        ReDriectStd.ReStdInFile("/Users/ddsss/Desktop/LearnSpace/LearnAlogrithms/JAVAAlogrithms/data/algs4-data/tale.txt");
+        ReDriectStd.ReStdInFile("D:\\LearnSpace\\LearnAlogrithms\\JAVAAlogrithms\\data\\algs4-data\\tale.txt");
         int minlen = 8;
         //ST<String,Integer>st = new ST<>();
         //SequentialSearchST<String,Integer>st = new SequentialSearchST<>();
