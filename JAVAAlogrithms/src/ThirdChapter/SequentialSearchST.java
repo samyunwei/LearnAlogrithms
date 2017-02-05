@@ -69,7 +69,11 @@ public class SequentialSearchST<Key,Value>{
         for(Node temp = first;temp != null;temp = temp.next)
         {
             if(temp.val.equals(key)){
-                last.next = temp.next;
+                if (last != null) {
+                    last.next = temp.next;
+                }else{
+                    first = temp.next;
+                }
                 temp = null;
             }
             last = temp;
