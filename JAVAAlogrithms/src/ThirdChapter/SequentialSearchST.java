@@ -12,11 +12,6 @@ public class SequentialSearchST<Key,Value>{
     private Node first;
     private int size;
 
-    public int getTotalCompareCount() {
-        return totalCompareCount;
-    }
-
-    private int totalCompareCount;
     private class Node
     {
         Key key;
@@ -37,7 +32,6 @@ public class SequentialSearchST<Key,Value>{
             if(key.equals(x.key)){
                 return x.val;
             }
-            ++totalCompareCount;
         }
         return null;
     }
@@ -50,7 +44,6 @@ public class SequentialSearchST<Key,Value>{
                 x.val = val;
                 return;
             }
-            ++totalCompareCount;
         }
         first = new Node(key,val,first);
         ++size;
@@ -94,7 +87,6 @@ public class SequentialSearchST<Key,Value>{
            if(key.equals(x.key)){
                return true;
            }
-           ++totalCompareCount;
        }
        return false;
    }
