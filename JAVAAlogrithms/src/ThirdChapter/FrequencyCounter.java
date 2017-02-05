@@ -10,10 +10,12 @@ import java.io.FileNotFoundException;
 public class FrequencyCounter {
     public static void main(String[] args) throws FileNotFoundException {
         ReDriectStd.ReStdInFile("D:\\LearnSpace\\LearnAlogrithms\\JAVAAlogrithms\\data\\algs4-data\\tale.txt");
-        int minlen = 8;
+        int minlen = 10;
         //ST<String,Integer>st = new ST<>();
         //SequentialSearchST<String,Integer>st = new SequentialSearchST<>();
         BinarySearchST<String,Integer>st = new BinarySearchST<>(100);
+        String lastword = "";
+        int lastCount = 0;
         while (!StdIn.isEmpty()){
             String word = StdIn.readString();
             if(word.length() < minlen){
@@ -24,8 +26,10 @@ public class FrequencyCounter {
             }else{
                 st.put(word,st.get(word)+1);
             }
+            lastword = word;
+            lastCount = st.size();
         }
-
+        StdOut.printf("lastword:%s lastCount:%d \n",lastword,lastCount);
         String max = " ";
         st.put(max,0);
         for(String word:st.keys(st.min(),st.max())){
