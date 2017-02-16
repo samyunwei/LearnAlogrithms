@@ -16,9 +16,9 @@ class STTest
 {
     public static void main(String[] args) throws FileNotFoundException{
         ReStdInString("S E A R C H E X A M P L E");
-        ST<String,Integer> st;
-        st = new ST<>();
-
+        //ST<String,Integer> st;
+        //st = new ST<>();
+        BSTPlus<String,Integer>st = new BSTPlus<>();
         for(int i =0;!StdIn.isEmpty();i++)
         {
             String key = StdIn.readString();
