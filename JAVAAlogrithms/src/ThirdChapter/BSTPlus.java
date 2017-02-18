@@ -30,12 +30,14 @@ public class BSTPlus<Key extends Comparable<Key>, Value> {
         private Node left, right;
         private int N;
         private int h;
+        private double avgpaths;
 
         public Node(Key key, Value val, int n) {
             this.key = key;
             this.val = val;
             N = n;
             h = 0;
+            avgpaths = 0;
         }
     }
 
@@ -88,7 +90,8 @@ public class BSTPlus<Key extends Comparable<Key>, Value> {
             x.val = val;
         }
         x.N = size(x.left) + size(x.right) + 1;
-        x.h = Math.max(x.left.h, x.right.h) + 1;
+        x.h = height(x);
+        x.avgpaths = fastavgCompare(x);
         return x;
     }
 
@@ -219,7 +222,8 @@ public class BSTPlus<Key extends Comparable<Key>, Value> {
         }
         x.left = deleteMin(x.left);
         x.N = size(x.left) + size(x.right) + 1;
-        x.h = Math.max(x.left.h, x.right.h) + 1;
+        x.h = height(x);
+        x.avgpaths = avgCompare(x);
         return x;
     }
 
@@ -233,7 +237,8 @@ public class BSTPlus<Key extends Comparable<Key>, Value> {
         }
         x.right = deleteMax(x.right);
         x.N = size(x.right) + size(x.left) + 1;
-        x.h = Math.max(x.left.h, x.right.h) + 1;
+        x.h = height(x);
+        x.avgpaths = avgCompare(x);
         return x;
     }
 
@@ -264,7 +269,8 @@ public class BSTPlus<Key extends Comparable<Key>, Value> {
             x.left = t.left;
         }
         x.N = size(x.left) + size(x.right) + 1;
-        x.h = Math.max(x.left.h, x.right.h) + 1;
+        x.h = height(x);
+        x.avgpaths = avgCompare(x);
         return x;
     }
 
@@ -317,6 +323,26 @@ public class BSTPlus<Key extends Comparable<Key>, Value> {
             return 0;
         }
         return x.h;
+    }
+
+    public double avgCompare(){
+        return avgCompare(root);
+    }
+
+    private double avgCompare(Node x){
+        if(x == null){
+            return 0;
+        }
+        int _paths = fastheight(x.left) + fastheight(x.right) + x.h;
+        return ((double) _paths / (double) size(x)) + 1;
+    }
+
+    public double fastavgavCompare(){
+        return fastheight(root);
+    }
+
+    private double fastavgCompare(Node x){
+        return x.avgpaths;
     }
 
 }
