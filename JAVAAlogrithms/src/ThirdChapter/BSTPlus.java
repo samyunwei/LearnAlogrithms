@@ -1,6 +1,9 @@
 package ThirdChapter;
 
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Queue;
+
+import java.util.ArrayList;
 
 /**
  * Author:Sam
@@ -330,11 +333,23 @@ public class BSTPlus<Key extends Comparable<Key>, Value> {
     }
 
     private double avgCompare(Node x){
+        return (double) deeps(x,0) / size(x);
+    }
+
+    private int deeps(Node x,int deep){
         if(x == null){
             return 0;
         }
-        int _paths = fastheight(x.left) + fastheight(x.right) + x.h;
-        return ((double) _paths / (double) size(x)) + 1;
+        deep++;
+        int ldps = 0;
+        int rdps =0;
+        if(x.left != null){
+            ldps = deeps(x.left,deep);
+        }
+        if(x.right != null){
+            rdps = deeps(x.right,deep);
+        }
+        return ldps + rdps + deep;
     }
 
     public double fastavgavCompare(){
@@ -343,6 +358,25 @@ public class BSTPlus<Key extends Comparable<Key>, Value> {
 
     private double fastavgCompare(Node x){
         return x.avgpaths;
+    }
+
+
+    static public double optCompare(int N){
+        int level = 0;
+        int total = 0;
+        double res = 0;
+        while ((total + 2 ^ (level+1)) <= N){
+            int temp=  2 ^ level;
+            res += temp * level;
+            total += temp;
+            level++;
+        }
+        for(int i = total;i<=N;i++)
+        {
+            res += 2 ^ (level+1) * (level+1);
+            i++;
+        }
+        return (res / N) + 1;
     }
 
 }
