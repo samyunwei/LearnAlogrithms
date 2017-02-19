@@ -35,7 +35,7 @@ public class Pratice32 {
         StdOut.println("BeginTets:-----------------");
         StdOut.println("min:" + st.min());
         StdOut.println("max:" + st.max());
-        StdOut.println("floor" + st.floor("S"));
+        StdOut.println("floor:" + st.floor("S"));
         StdOut.println("ceiling:" + st.ceiling("S"));
         StdOut.println("seletc:" + st.rank("S"));
         StdOut.println("rank" + st.rank("S"));
@@ -50,7 +50,7 @@ public class Pratice32 {
 
     static private void showST(BST<String, Integer> st) {
         for (String key : st.keys()) {
-            StdOut.println("Ket" + st.get(key));
+            StdOut.println("Key:"+key+"    Val:" + st.get(key));
         }
     }
 }
