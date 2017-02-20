@@ -7,11 +7,11 @@ import edu.princeton.cs.algs4.Queue;
  * Mail:samyunwei@163.com
  * Create Time: 2017/2/20
  */
-public class BSTNC<Key extends Comparable<Key>, Value> {
+public class BSTNR<Key extends Comparable<Key>, Value> {
     private Node root;
     private int totalcounter;
 
-    public BSTNC() {
+    public BSTNR() {
         totalcounter = 0;
     }
 
@@ -28,10 +28,12 @@ public class BSTNC<Key extends Comparable<Key>, Value> {
         private Key key;
         private Value val;
         private Node left, right;
+        private int N;
 
-        public Node(Key key, Value val) {
+        public Node(Key key, Value val, int n) {
             this.key = key;
             this.val = val;
+            N = n;
         }
     }
 
@@ -42,8 +44,9 @@ public class BSTNC<Key extends Comparable<Key>, Value> {
     private int size(Node x) {
         if (x == null) {
             return 0;
+        } else {
+            return x.N;
         }
-        return size(x.left) + size(x.right) + 1;
     }
 
 
@@ -52,18 +55,19 @@ public class BSTNC<Key extends Comparable<Key>, Value> {
     }
 
     public Value get(Node x, Key key) {
-        if (x == null) {
-            return null;
+        while(x != null){
+
+            int cmp = key.compareTo(x.key);
+            totalcounter++;
+            if (cmp == 0) {
+                return x.val;
+            }else if (cmp < 0){
+                x = x.left;
+            }else{
+                x = x.right;
+            }
         }
-        int cmp = key.compareTo(x.key);
-        totalcounter++;
-        if (cmp < 0) {
-            return get(x.left, key);
-        } else if (cmp > 0) {
-            return get(x.right, key);
-        } else {
-            return x.val;
-        }
+        return null;
     }
 
     public void put(Key key, Value val) {
@@ -72,7 +76,7 @@ public class BSTNC<Key extends Comparable<Key>, Value> {
 
     public Node put(Node x, Key key, Value val) {
         if (x == null) {
-            return new Node(key, val);
+            return new Node(key, val, 1);
         }
         int cmp = key.compareTo(x.key);
         if (cmp < 0) {
@@ -82,6 +86,7 @@ public class BSTNC<Key extends Comparable<Key>, Value> {
         } else {
             x.val = val;
         }
+        x.N = size(x.left) + size(x.right) + 1;
         return x;
     }
 
@@ -164,42 +169,42 @@ public class BSTNC<Key extends Comparable<Key>, Value> {
         }
     }
 
-//    public Key select(int k) {
-//        return select(root, k).key;
-//    }
-//
-//    private Node select(Node x, int k) {
-//        if (x == null) {
-//            return null;
-//        }
-//        int t = size(x.left);
-//        if (t > k) {
-//            return select(x.left, k);
-//        } else if (t < k) {
-//            return select(x.right, k - t - 1);
-//        } else {
-//            return x;
-//        }
-//    }
-//
-//
-//    public int rank(Key key) {
-//        return rank(key, root);
-//    }
-//
-//    private int rank(Key key, Node x) {
-//        if (x == null) {
-//            return 0;
-//        }
-//        int cmp = key.compareTo(x.key);
-//        if (cmp < 0) {
-//            return rank(key, x.left);
-//        } else if (cmp > 0) {
-//            return 1 + size(x.left) + rank(key, x.right);
-//        } else {
-//            return size(x.left);
-//        }
-//    }
+    public Key select(int k) {
+        return select(root, k).key;
+    }
+
+    private Node select(Node x, int k) {
+        if (x == null) {
+            return null;
+        }
+        int t = size(x.left);
+        if (t > k) {
+            return select(x.left, k);
+        } else if (t < k) {
+            return select(x.right, k - t - 1);
+        } else {
+            return x;
+        }
+    }
+
+
+    public int rank(Key key) {
+        return rank(key, root);
+    }
+
+    private int rank(Key key, Node x) {
+        if (x == null) {
+            return 0;
+        }
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) {
+            return rank(key, x.left);
+        } else if (cmp > 0) {
+            return 1 + size(x.left) + rank(key, x.right);
+        } else {
+            return size(x.left);
+        }
+    }
 
 
     public void deleteMin() {
@@ -211,6 +216,7 @@ public class BSTNC<Key extends Comparable<Key>, Value> {
             return x.right;
         }
         x.left = deleteMin(x.left);
+        x.N = size(x.left) + size(x.right) + 1;
         return x;
     }
 
@@ -223,6 +229,7 @@ public class BSTNC<Key extends Comparable<Key>, Value> {
             return x.left;
         }
         x.right = deleteMax(x.right);
+        x.N = size(x.right) + size(x.left) + 1;
         return x;
     }
 
@@ -251,6 +258,7 @@ public class BSTNC<Key extends Comparable<Key>, Value> {
             x.right = deleteMin(t.right);
             x.left = t.left;
         }
+        x.N = size(x.left) + size(x.right) + 1;
         return x;
     }
 
