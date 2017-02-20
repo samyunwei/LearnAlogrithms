@@ -170,9 +170,9 @@ public class BSTNR<Key extends Comparable<Key>, Value> {
                 x = x.left;
                 continue;
             }
-             x = x.right;
+            x = x.right;
         }
-        return res ;
+        return res;
     }
 
     public Key ceiling(Key key) {
@@ -200,25 +200,35 @@ public class BSTNR<Key extends Comparable<Key>, Value> {
             }
             x = x.left;
         }
-        return res ;
+        return res;
     }
 
     public Key select(int k) {
-        return select(root, k).key;
+        Node res = select(root, k);
+        if(res != null){
+            return res.key;
+        }else{
+            return null;
+        }
     }
 
     private Node select(Node x, int k) {
-        if (x == null) {
-            return null;
+        int t = 0;
+        while (t != k) {
+            if (x == null) {
+                return null;
+            }
+            t = size(x);
+            if (t > k) {
+                x = x.left;
+            } else if (t < k) {
+                x = x.right;
+                k = k - t - 1;
+            } else {
+                return x;
+            }
         }
-        int t = size(x.left);
-        if (t > k) {
-            return select(x.left, k);
-        } else if (t < k) {
-            return select(x.right, k - t - 1);
-        } else {
-            return x;
-        }
+        return null;
     }
 
 
@@ -230,14 +240,19 @@ public class BSTNR<Key extends Comparable<Key>, Value> {
         if (x == null) {
             return 0;
         }
-        int cmp = key.compareTo(x.key);
-        if (cmp < 0) {
-            return rank(key, x.left);
-        } else if (cmp > 0) {
-            return 1 + size(x.left) + rank(key, x.right);
-        } else {
-            return size(x.left);
+        int res = 0;
+        while(x != null) {
+            int cmp = key.compareTo(x.key);
+            if (cmp < 0) {
+                x = x.left;
+            } else if (cmp > 0) {
+                res += (1 + size(x.left));
+                x = x.right;
+            } else {
+                return size(x.left);
+            }
         }
+        return res;
     }
 
 
