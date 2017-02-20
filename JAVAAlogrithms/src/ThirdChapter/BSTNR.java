@@ -55,15 +55,15 @@ public class BSTNR<Key extends Comparable<Key>, Value> {
     }
 
     public Value get(Node x, Key key) {
-        while(x != null){
+        while (x != null) {
 
             int cmp = key.compareTo(x.key);
             totalcounter++;
             if (cmp == 0) {
                 return x.val;
-            }else if (cmp < 0){
+            } else if (cmp < 0) {
                 x = x.left;
-            }else{
+            } else {
                 x = x.right;
             }
         }
@@ -75,19 +75,45 @@ public class BSTNR<Key extends Comparable<Key>, Value> {
     }
 
     public Node put(Node x, Key key, Value val) {
-        if (x == null) {
-            return new Node(key, val, 1);
+        Node last = null;
+        Node root = x;
+        while (x != null) {
+            int cmp = key.compareTo(x.key);
+            if (cmp == 0) {
+                x.val = val;
+                return root;
+            } else if (cmp < 0) {
+                last = x;
+                x = x.left;
+            } else {
+                last = x;
+                x = x.right;
+            }
         }
-        int cmp = key.compareTo(x.key);
-        if (cmp < 0) {
-            x.left = put(x.left, key, val);
-        } else if (cmp > 0) {
-            x.right = put(x.right, key, val);
-        } else {
-            x.val = val;
+        if (last != null) {
+            int cmp = key.compareTo(last.key);
+            if (cmp > 0) {
+                last.right = new Node(key, val, 1);
+            } else {
+                last.left = new Node(key, val, 1);
+            }
+            x = root;
+            while (true) {
+                cmp = key.compareTo(x.key);
+                if (cmp == 0) {
+                    break;
+                } else if (cmp < 0) {
+                    x = x.left;
+                    x.N++;
+                } else {
+                    x = x.right;
+                    x.N++;
+                }
+            }
+
         }
-        x.N = size(x.left) + size(x.right) + 1;
-        return x;
+        return root;
+
     }
 
 
@@ -96,10 +122,13 @@ public class BSTNR<Key extends Comparable<Key>, Value> {
     }
 
     private Node min(Node x) {
-        if (x.left == null) {
-            return x;
+        if (x == null) {
+            return null;
         }
-        return min(x.left);
+        while (x.left != null) {
+            x = x.left;
+        }
+        return x;
     }
 
 
@@ -108,10 +137,13 @@ public class BSTNR<Key extends Comparable<Key>, Value> {
     }
 
     private Node max(Node x) {
-        if (x.right == null) {
-            return x;
+        if (x == null) {
+            return null;
         }
-        return max(x.right);
+        while (x.right != null) {
+            x = x.right;
+        }
+        return x;
     }
 
 
@@ -127,19 +159,20 @@ public class BSTNR<Key extends Comparable<Key>, Value> {
         if (x == null) {
             return null;
         }
-        int cmp = key.compareTo(x.key);
-        if (cmp == 0) {
-            return x;
+        Node res = null;
+        while (x != null) {
+            int cmp = key.compareTo(x.key);
+            if (cmp == 0) {
+                return x;
+            }
+            if (cmp < 0) {
+                res = x;
+                x = x.left;
+                continue;
+            }
+             x = x.right;
         }
-        if (cmp < 0) {
-            return floor(x.left, key);
-        }
-        Node t = floor(x.right, key);
-        if (t != null) {
-            return t;
-        } else {
-            return x;
-        }
+        return res ;
     }
 
     public Key ceiling(Key key) {
@@ -154,19 +187,20 @@ public class BSTNR<Key extends Comparable<Key>, Value> {
         if (x == null) {
             return null;
         }
-        int cmp = key.compareTo(x.key);
-        if (cmp == 0) {
-            return x;
+        Node res = null;
+        while (x != null) {
+            int cmp = key.compareTo(x.key);
+            if (cmp == 0) {
+                return x;
+            }
+            if (cmp > 0) {
+                res = x;
+                x = x.right;
+                continue;
+            }
+            x = x.left;
         }
-        if (cmp > 0) {
-            return ceiling(x.right, key);
-        }
-        Node t = floor(x.left, key);
-        if (t != null) {
-            return t;
-        } else {
-            return x;
-        }
+        return res ;
     }
 
     public Key select(int k) {
