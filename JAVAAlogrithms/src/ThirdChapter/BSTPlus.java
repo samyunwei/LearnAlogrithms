@@ -1,6 +1,8 @@
 package ThirdChapter;
 
 import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.Stack;
+import edu.princeton.cs.algs4.StdRandom;
 
 
 /**
@@ -374,6 +376,34 @@ public class BSTPlus<Key extends Comparable<Key>, Value> {
             i++;
         }
         return (res / N) + 1;
+    }
+
+
+    public Key randomKey(){
+        return randomKey(root);
+    }
+
+    private Key randomKey(Node x){
+        if(x == null){
+            return null;
+        }
+        int random = StdRandom.uniform(0,size(root));
+        int count = 0;
+        Stack<Node>rightNodes  = new Stack<>();
+        while (true){
+            while (x != null){
+                if(count == random){
+                    return x.key;
+                }
+                rightNodes.push(x.right);
+                x = x.left;
+                count++;
+            }
+            if(rightNodes.isEmpty()){
+                return null;
+            }
+            x = rightNodes.pop();
+        }
     }
 
 }

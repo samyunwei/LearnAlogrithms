@@ -218,7 +218,7 @@ public class BSTNR<Key extends Comparable<Key>, Value> {
             if (x == null) {
                 return null;
             }
-            t = size(x);
+            t = size(x.left);
             if (t > k) {
                 x = x.left;
             } else if (t < k) {
