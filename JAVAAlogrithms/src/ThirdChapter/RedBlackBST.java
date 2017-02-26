@@ -26,11 +26,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
 
         private boolean isRed(Node x) {
-            if (x == null) {
-                return false;
-            } else {
-                return x.color == RED;
-            }
+            return x != null && x.color == RED;
         }
 
         Node roateLeft(Node h) {
@@ -44,7 +40,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
             return x;
         }
 
-        Node roateRight(Node h){
+        Node roateRight(Node h) {
             Node x = h.left;
             h.left = x.right;
             x.right = h;
@@ -66,10 +62,42 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         }
 
 
-        void flipColors(Node h){
+        void flipColors(Node h) {
             h.color = RED;
             h.left.color = BLACK;
             h.right.color = BLACK;
+        }
+
+        public void put(Key key, Value val) {
+            root = put(root, key, val);
+            root.color = BLACK;
+        }
+
+        private Node put(Node h, Key key, Value val) {
+            if (h == null) {
+                return new Node(key, val, 1, RED);
+            }
+            int cmp = key.compareTo(h.key);
+            if (cmp < 0) {
+                h.left = put(h.left, key, val);
+            } else if (cmp > 0) {
+                h.right = put(h.right, key, val);
+            } else {
+                h.val = val;
+            }
+
+            if (isRed(h.right) && !isRed(h.left)) {
+                h = roateLeft(h);
+            }
+            if (isRed(h.left) && isRed(h.left.left)) {
+                h = roateRight(h);
+            }
+            if (isRed(h.left) && isRed(h.right)) {
+                flipColors(h);
+            }
+
+            h.N = size(h.left) + size(h.right) + 1;
+            return h;
         }
 
     }
