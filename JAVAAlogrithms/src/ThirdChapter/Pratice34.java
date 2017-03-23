@@ -1,6 +1,12 @@
 package ThirdChapter;
 
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
+
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * Author:Sam
@@ -9,21 +15,40 @@ import edu.princeton.cs.algs4.StdOut;
  */
 public class Pratice34 {
     public static void main(String[] args) {
-        String[] strs = {"E","A","S","Y","Q","U","T","I","O","N"};
-        calacHashIndex(5,strs);
+        String[] strs = {"E", "A", "S", "Y", "Q", "U", "T", "I", "O", "N"};
+        //calacHashIndex(11,strs);
+        findperfectHashf(strs);
     }
 
-    static public void calacHashIndex(int R,String[] str){
-        for(String s : str){
-            StdOut.println(getStringhash(R,s,5));
+    static public void calacHashIndex(int R, String[] str) {
+        for (String s : str) {
+            StdOut.println(getStringhash(R, s, 5));
         }
     }
 
-    static public int getStringhash(int R,String s,int M){
+    static public int getStringhash(int R, String s, int M) {
         int hash = 0;
-        for(int i = 0;i < s.length();i++){
+        for (int i = 0; i < s.length(); i++) {
             hash = (R * hash + s.charAt(i)) % M;
         }
         return hash;
     }
+
+
+    static public void findperfectHashf(String[] str) {
+        HashMap<Integer, String> res = new HashMap<>();
+        int r = 11;
+        int M = 5;
+        while (res.size() != str.length) {
+            res.clear();
+            for (String s : str) {
+                res.put(getStringhash(r, s, M), s);
+            }
+            M++;
+        }
+        for (Map.Entry<Integer, String> each : res.entrySet()) {
+            StdOut.println(each.getKey() + ":" + each.getValue());
+        }
+    }
+
 }
