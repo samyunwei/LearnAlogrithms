@@ -1,11 +1,7 @@
 package ThirdChapter;
 
-import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
-
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -16,13 +12,14 @@ import java.util.Map;
 public class Pratice34 {
     public static void main(String[] args) {
         String[] strs = {"E", "A", "S", "Y", "Q", "U", "T", "I", "O", "N"};
-        //calacHashIndex(11,strs);
-        findperfectHashf(strs);
+        String[] strs2 = {"S","E","A","R","C","H","X","M","P","L"};
+        calacHashIndex(11,strs);
+        //findperfectHashf(strs);
     }
 
     static public void calacHashIndex(int R, String[] str) {
         for (String s : str) {
-            StdOut.println(getStringhash(R, s, 5));
+            StdOut.println(getStringhash(R, s, 32));
         }
     }
 
