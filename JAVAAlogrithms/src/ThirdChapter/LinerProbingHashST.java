@@ -1,5 +1,8 @@
 package ThirdChapter;
 
+import edu.princeton.cs.algs4.StdOut;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -14,14 +17,14 @@ public class LinerProbingHashST<Key, Value> {
     private Value[] vals;
 
     public LinerProbingHashST() {
-        keys = (Key[]) new Objects[M];
-        vals = (Value[]) new Objects[M];
+        keys = (Key[]) new Object[M];
+        vals = (Value[]) new Object[M];
     }
 
     public LinerProbingHashST(int m) {
         M = m;
-        keys = (Key[]) new Objects[M];
-        vals = (Value[]) new Objects[M];
+        keys = (Key[]) new Object[M];
+        vals = (Value[]) new Object[M];
     }
 
     private int hash(Key key) {
@@ -49,10 +52,10 @@ public class LinerProbingHashST<Key, Value> {
                 vals[i] = val;
                 return;
             }
-            keys[i] = key;
-            vals[i] = val;
-            N++;
         }
+        keys[i] = key;
+        vals[i] = val;
+        N++;
     }
 
     public Value get(Key key) {
@@ -92,6 +95,27 @@ public class LinerProbingHashST<Key, Value> {
         N--;
         if (N > 0 && N == M / 8) {
             resize(M / 2);
+        }
+    }
+
+
+    Iterable<Key> Keys() {
+        ArrayList<Key> reskeys = new ArrayList<Key>();
+        for (int i = 0; i < M; i++) {
+            if (keys[i] != null) {
+                reskeys.add(keys[i]);
+            }
+        }
+        return reskeys;
+    }
+
+    void showST() {
+        for (int i = 0; i < M; i++) {
+            if (keys[i] == null) {
+                StdOut.print(" Null ");
+            } else {
+                StdOut.print(" " + keys[i] + " ");
+            }
         }
     }
 

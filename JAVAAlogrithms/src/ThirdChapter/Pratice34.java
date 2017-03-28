@@ -1,6 +1,7 @@
 package ThirdChapter;
 
 import edu.princeton.cs.algs4.StdOut;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,9 +13,10 @@ import java.util.Map;
 public class Pratice34 {
     public static void main(String[] args) {
         String[] strs = {"E", "A", "S", "Y", "Q", "U", "T", "I", "O", "N"};
-        String[] strs2 = {"S","E","A","R","C","H","X","M","P","L"};
-        calacHashIndex(11,strs);
+        String[] strs2 = {"S", "E", "A", "R", "C", "H", "X", "M", "P", "L"};
+        //calacHashIndex(11, strs);
         //findperfectHashf(strs);
+        testLinearProbingHashST(strs2);
     }
 
     static public void calacHashIndex(int R, String[] str) {
@@ -28,6 +30,7 @@ public class Pratice34 {
         for (int i = 0; i < s.length(); i++) {
             hash = (R * hash + s.charAt(i)) % M;
         }
+
         return hash;
     }
 
@@ -47,5 +50,16 @@ public class Pratice34 {
             StdOut.println(each.getKey() + ":" + each.getValue());
         }
     }
+
+    static public void testLinearProbingHashST(String[] str){
+        LinerProbingHashST<String,Integer> testst = new LinerProbingHashST<String,Integer>();
+        for(int i = 0;i < str.length;++i){
+          testst.put(str[i], i);
+          StdOut.println(str[i]);
+       }
+        testst.delete("C");
+        testst.showST();
+    }
+
 
 }
