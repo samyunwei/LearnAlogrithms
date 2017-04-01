@@ -51,12 +51,12 @@ public class Pratice34 {
         }
     }
 
-    static public void testLinearProbingHashST(String[] str){
-        LinerProbingHashST<String,Integer> testst = new LinerProbingHashST<String,Integer>();
-        for(int i = 0;i < str.length;++i){
-          testst.put(str[i], i);
-          StdOut.println(str[i]);
-       }
+    static public void testLinearProbingHashST(String[] str) {
+        LinerProbingHashST<String, Integer> testst = new LinerProbingHashST<String, Integer>();
+        for (int i = 0; i < str.length; ++i) {
+            testst.put(str[i], i);
+            StdOut.println(str[i]);
+        }
         testst.delete("C");
         testst.showST();
     }
