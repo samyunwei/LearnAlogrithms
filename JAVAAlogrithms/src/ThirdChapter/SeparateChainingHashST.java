@@ -1,5 +1,7 @@
 package ThirdChapter;
 
+import java.util.ArrayList;
+
 /**
  * Author:Sam
  * Mail:samyunwei@163.com
@@ -36,6 +38,16 @@ public class SeparateChainingHashST<Key, Value> {
     }
 
     public void delete(Key key){st[hash(key)].delete(key);}
+
+    public Iterable<Key> keys(){
+        ArrayList<Key> keys = new ArrayList<Key>();
+        for(SequentialSearchST<Key,Value> list:st){
+            for(Key eachkey:list.keys()){
+                keys.add(eachkey);
+            }
+        }
+        return keys;
+    }
 
 
 }

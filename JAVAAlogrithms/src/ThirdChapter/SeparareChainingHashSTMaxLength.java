@@ -10,7 +10,7 @@ public class SeparareChainingHashSTMaxLength<Key, Value> {
     private int M;
     private int maxlen;
     private SequentialSearchST<Key, Value>[] st;
-
+    private int[]primes;
     public SeparareChainingHashSTMaxLength() {
         this(997);
     }
@@ -24,9 +24,9 @@ public class SeparareChainingHashSTMaxLength<Key, Value> {
     }
 
 
-    private int hash(Key key) {
-        return (key.hashCode() & 0x7fffffff) % M;
-    }
+//    private int hash(Key key) {
+//        return (key.hashCode() & 0x7fffffff) % M;
+//    }
 
     public Value get(Key key) {
         return st[hash(key)].get(key);
@@ -55,5 +55,13 @@ public class SeparareChainingHashSTMaxLength<Key, Value> {
         newone.N = N;
     }
 
+
+    private int hash(Key x){
+        int t = x.hashCode() & 0x7fffffff;
+        if(Math.log(M)< 26){
+            t = t % primes[(int)Math.log(M) + 5];
+        }
+        return  t % M;
+    }
 
 }
