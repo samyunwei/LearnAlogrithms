@@ -71,6 +71,9 @@ public class LinerProbingHashST<Key, Value> {
         return get(key) != null;
     }
 
+    public int size() {
+        return N;
+    }
 
     public void delete(Key key) {
         if (!contains(key)) {
@@ -99,7 +102,7 @@ public class LinerProbingHashST<Key, Value> {
     }
 
 
-    Iterable<Key> Keys() {
+    Iterable<Key> keys() {
         ArrayList<Key> reskeys = new ArrayList<Key>();
         for (int i = 0; i < M; i++) {
             if (keys[i] != null) {
