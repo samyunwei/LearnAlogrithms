@@ -122,4 +122,8 @@ public class LinerProbingHashST<Key, Value> {
         }
     }
 
+    public boolean isEmpty(){
+        return N == 0;
+    }
+
 }
