@@ -64,6 +64,9 @@ public class STint <Value>{
         }
     }
 
+    public boolean contains(Integer key){
+        return get(key) != null;
+    }
 
     private void flipColors(Node h) {
         h.color = RED;

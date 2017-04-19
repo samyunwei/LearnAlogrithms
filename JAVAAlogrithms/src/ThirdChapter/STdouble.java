@@ -63,6 +63,9 @@ public class STdouble <Value>{
             return x.N;
         }
     }
+    public boolean contains(Double key){
+        return get(key) != null;
+    }
 
 
     private void flipColors(Node h) {
