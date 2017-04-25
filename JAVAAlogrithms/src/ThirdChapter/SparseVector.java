@@ -36,4 +36,16 @@ public class SparseVector {
         }
         return sum;
     }
+
+
+    public void sum(SparseVector other){
+        for(int key:other.st.keys()){
+            Double res = get(key) + other.get(key);
+            if(res == 0){
+                st.delete(key);
+            }else{
+                st.put(key,res);
+            }
+        }
+    }
 }
